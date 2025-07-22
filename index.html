@@ -267,47 +267,8 @@
         </div>
     </footer>
 
+    <script src="script.js"></script>
     <script>
-        // Contagem regressiva para o casamento
-        const weddingDate = new Date("August 16, 2025 16:00:00").getTime();
-        
-        const countdown = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
-            
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            document.getElementById("days").innerHTML = days;
-            document.getElementById("hours").innerHTML = hours;
-            document.getElementById("minutes").innerHTML = minutes;
-            document.getElementById("seconds").innerHTML = seconds;
-            
-            if (distance < 0) {
-                clearInterval(countdown);
-                document.querySelector(".countdown").innerHTML = "<h3>Estamos casados!</h3>";
-            }
-        }, 1000);
-        
-        // Formulário de confirmação
-        document.getElementById("rsvp-form").addEventListener("submit", function(e) {
-            e.preventDefault();
-            alert("Obrigado por confirmar sua presença! Entraremos em contato em breve com mais detalhes.");
-            this.reset();
-        });
-        
-        // Menu fixo ao rolar
-        window.addEventListener("scroll", function() {
-            const navbar = document.getElementById("navbar");
-            if (window.scrollY > 100) {
-                navbar.style.top = "0";
-            } else {
-                navbar.style.top = "-70px";
-            }
-        });
-        
         // Menu Mobile
         const menuToggle = document.getElementById('mobile-menu-toggle');
         const navMenu = document.querySelector('#navbar ul');

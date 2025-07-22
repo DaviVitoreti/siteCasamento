@@ -439,6 +439,13 @@ h2:after {
     margin-bottom: 20px;
 }
 
+/* Adicione isso na seção de Comentários */
+#comment-form .btn {
+    position: static;
+    transform: none;
+    margin-top: 0;
+}
+
 /* Formulário de Confirmação */
 #rsvp-form {
     max-width: 600px;

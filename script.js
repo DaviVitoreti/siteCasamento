@@ -26,6 +26,7 @@ document.getElementById("rsvp-form").addEventListener("submit", function(e) {
     e.preventDefault();
     alert("Obrigado por confirmar sua presença! Entraremos em contato em breve com mais detalhes.");
     this.reset();
+    return false;
 });
 
 // Menu fixo ao rolar
@@ -92,7 +93,16 @@ document.getElementById('comment-form').addEventListener('submit', function(e) {
     // Reseta o formulário
     this.reset();
     alert('Mensagem enviada com sucesso! Obrigado pela contribuição.');
+    return false;
 });
 
 // Carrega comentários quando a página é carregada
 document.addEventListener('DOMContentLoaded', loadComments);
+
+// Previne recarregamento da página nos formulários
+document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        return false;
+    });
+});
