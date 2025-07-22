@@ -120,57 +120,31 @@
         <section id="presentes" class="section">
             <h2>Lista de Presentes</h2>
             <div class="gifts">
-                <!--
-                <div class="gift-card">
-                    <i class="fas fa-book"></i>
-                    <h3>Curso de Como Não Parecer um Turista</h3>
-                    <p>R$240,00</p>
-                    <a href="#pix" class="btn btn-gift">Visitar Lista</a>
-                </div>
-                <div class="gift-card">
-                    <i class="fas fa-archive"></i>
-                    <h3>Kit Saudade Premium</h3>
-                    <p>R$300,00</p>
-                    <a href="#pix" class="btn btn-gift">Visitar Lista</a>
-                </div>
-                <div class="gift-card">
-                    <i class="fas fa-plane"></i>
-                    <h3>Manual de Sobrevivência Cultural</h3>
-                    <p>R$80,00</p>
-                    <a href="#pix" class="btn btn-gift">Contribuir</a>
-                </div>
-                -->
-
                 <div class="gift-card">
                     <img src="images/fourLeafClover.jpg" alt="Trevo de Quatro Folhas">
                     <h3>Boa Sorte para o Casal</h3>
                     <a href="#pix" class="btn btn-gift">R$100,00</a>
                 </div>
-
                 <div class="gift-card">
                     <img src="images/U2.jpg" alt="Banda U2">
                     <h3>Show do U2</h3>
                     <a href="#pix" class="btn btn-gift">R$1.500,00</a>
                 </div>
-
                 <div class="gift-card">
                     <img src="images/elfSimpsons.webp" alt="Banda U2">
                     <h3>Beber a ponto de ver duendes</h3>
                     <a href="#pix" class="btn btn-gift">R$800,00</a>
                 </div>
-
                 <div class="gift-card">
                     <img src="images/sceneFamilyGuy.jpg" alt="Banda U2">
                     <h3>Ser o Convidado Favorito do Casal</h3>
                     <a href="#pix" class="btn btn-gift">R$15.000,00</a>
                 </div>
-
                 <div class="gift-card">
                     <img src="images/ireland.jpg" alt="Banda U2">
                     <h3>Se Mudar para a Irlanda com a Gente</h3>
                     <a href="#pix" class="btn btn-gift">R$40.000,00</a>
                 </div>
-
                 <div class="gift-card">
                     <img src="images/tommyShelby.png" alt="Banda U2">
                     <h3>Virar amigo do Tommy Shelby</h3>
@@ -191,6 +165,31 @@
                     </div>
                 </div>
             </div>
+        </section>
+
+        <section id="pix-comments" class="section">
+        <h2>Mensagens de Contribuição</h2>
+        <div class="comments-container">
+            <form id="comment-form">
+                <div class="form-group">
+                    <label for="comment-name">Seu Nome:</label>
+                    <input type="text" id="comment-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="comment-message">Mensagem:</label>
+                    <textarea id="comment-message" name="message" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="comment-amount">Valor (opcional):</label>
+                    <input type="number" id="comment-amount" name="amount" min="0" step="0.01">
+                </div>
+                <button type="submit" class="btn">Enviar Mensagem</button>
+            </form>
+            
+            <div id="comments-list" class="comments-list">
+                <!-- Os comentários serão carregados aqui via JavaScript -->
+            </div>
+        </div>
         </section>
 
         <!-- Seção Confirmação -->
