@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
     <title>Gabriele & Diogo - Nosso Casamento</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,6 +40,9 @@
 
     <!-- Menu de Navegação -->
     <nav id="navbar">
+        <button id="mobile-menu-toggle" aria-label="Abrir menu">
+            <i class="fas fa-bars"></i>
+        </button>
         <ul>
             <li><a href="#sobre"><i class="fas fa-heart"></i> Nossa História</a></li>
             <li><a href="#cerimonia"><i class="fas fa-glass-cheers"></i> Recepção</a></li>
@@ -64,8 +67,6 @@
                 <div class="story-image">
                     <div class="polaroid">
                         <img data-u="image" src="images/gabrieleDiogo1.jpg" alt="Gabriele e Diogo">
-                        <!-- Mudar isso posteriormente -->
-                        <p>Nosso primeiro aniversário juntos</p>
                     </div>
                 </div>
             </div>
@@ -77,13 +78,10 @@
             <div class="detail-card">
                 <i class="fas fa-glass-cheers"></i>
                 <h3>Recepção</h3>
-
-                <!-- Colocar o endereço correto -->
-                
-                <p>Fazenda da Família da Noiva</p>
-                <p><i class="far fa-clock"></i> 17/08/2025<br>14:00 Horas</p>
-                <p><i class="fas fa-map-marker-alt"></i> Itu/SP</p>
-                <a href="https://www.google.com/maps?ll=-23.325536,-47.295358&z=10&t=m&hl=pt-BR&gl=BR&mapclient=embed&q=Itu+SP" target="_blank" class="map-link">Ver no mapa</a>
+                <p>A Palhoça Restaurante</p>
+                <p><i class="far fa-clock"></i> 16/08/2025<br>12:00 Horas</p>
+                <p><i class="fas fa-map-marker-alt"></i> Rod. Alkindar Monteiro Junqueira dos Pires, Km 32 - Santa Cruz<br> Itatiba/SP</p>
+                <a href="https://www.google.com/maps/place/A+Palho%C3%A7a+Restaurante/@-22.9772548,-46.7346038,17z/data=!3m1!4b1!4m6!3m5!1s0x94ced39b8dc5547d:0x39dca8d09d18f6cb!8m2!3d-22.9772548!4d-46.7346038!16s%2Fg%2F1ptwn0x6_?entry=ttu&g_ep=EgoyMDI1MDcxNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-link">Ver no mapa</a>
             </div>
         </section>
 
@@ -112,21 +110,35 @@
             <div class="gifts">
                 <div class="gift-card">
                     <i class="fas fa-home"></i>
-                    <h3>placeholder</h3>
-                    <p>placeholder</p>
-                    <a href="https://www.camaecia.com.br" target="_blank" class="btn btn-gift">Visitar Lista</a>
+                    <h3>Curso de Como Não Parecer um Turista</h3>
+                    <p>Inclui módulos como "Fingindo saber usar o transporte público local" e "O que não dizer na imigração".</p>
+                    <a href="#pix" class="btn btn-gift">Visitar Lista</a>
                 </div>
                 <div class="gift-card">
                     <i class="fas fa-utensils"></i>
-                    <h3>placeholder</h3>
-                    <p>placeholder</p>
-                    <a href="https://www.ricardoeletro.com.br" target="_blank" class="btn btn-gift">Visitar Lista</a>
+                    <h3>Kit Saudade Premium</h3>
+                    <p>Cheiro de pão francês congelado;<br>Garrafinha de água de torneira da cidade natal;<br>Vídeo em looping de parente dizendo "volta logo"!</p>
+                    <a href="#pix" class="btn btn-gift">Visitar Lista</a>
                 </div>
                 <div class="gift-card">
                     <i class="fas fa-plane"></i>
-                    <h3>placeholder</h3>
-                    <p>placeholder</p>
-                    <a href="#viagem" class="btn btn-gift">Contribuir</a>
+                    <h3>Manual de Sobrevivência Cultural</h3>
+                    <p>"Entendendo piadas locais que não têm graça.";<br>"Como sorrir e acenar quando não entendeu nada.";</p>
+                    <a href="#pix" class="btn btn-gift">Contribuir</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Contribuições via PIX -->
+        <section id="pix" class="section">
+            <h2>PIX</h2>
+            <div class="pix">
+                <div class="pix-qrcode">
+                    <img src="images/qrCode.png" alt="QR Code">
+                    
+                    <div class="pix-text">
+                        <p><strong>Chave PIX:</strong> gabrielevitoreti@gmail.com</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -245,6 +257,21 @@
             } else {
                 navbar.style.top = "-70px";
             }
+        });
+        
+        // Menu Mobile
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const navMenu = document.querySelector('#navbar ul');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Fechar menu ao clicar em links
+        document.querySelectorAll('#navbar a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
         });
     </script>
 </body>
