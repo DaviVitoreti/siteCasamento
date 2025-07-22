@@ -39,70 +39,94 @@ window.addEventListener("scroll", function() {
     }
 });
 
-// Função para carregar e exibir comentários
-function loadComments() {
-    const commentsList = document.getElementById('comments-list');
+const API_URL = "https://script.google.com/macros/s/AKfycbywRNOHoS4jYpB36Xhj86GcHTtcqX-BdYjMsyZZK4DArBQhmFX6IrNuUV3rnUaUasNo5g/exec";
+
+// Função para carregar comentários
+async function loadComments() {
+  const commentsList = document.getElementById('comments-list');
+  commentsList.innerHTML = '<div class="loading">Carregando...</div>';
+  
+  try {
+    const response = await fetch(API_URL);
+    const comments = await response.json();
+    
     commentsList.innerHTML = '';
     
-    // Recupera comentários do localStorage
-    const comments = JSON.parse(localStorage.getItem('pixComments')) || [];
+    if (comments.length === 0) {
+      commentsList.innerHTML = '<p>Nenhum comentário ainda. Seja o primeiro!</p>';
+      return;
+    }
     
     // Ordena por data (mais recente primeiro)
-    comments.sort((a, b) => new Date(b.date) - new Date(a.date));
+    comments.sort((a, b) => new Date(b.data) - new Date(a.data));
     
     // Adiciona cada comentário à lista
     comments.forEach(comment => {
-        const commentElement = document.createElement('div');
-        commentElement.classList.add('comment');
-        commentElement.innerHTML = `
-            <div class="comment-header">
-                <strong>${comment.name}</strong>
-                <span>${new Date(comment.date).toLocaleDateString('pt-BR')}</span>
-            </div>
-            ${comment.amount ? `<div class="comment-amount">Contribuição: R$${parseFloat(comment.amount).toFixed(2)}</div>` : ''}
-            <div class="comment-message">${comment.message}</div>
-        `;
-        commentsList.appendChild(commentElement);
+      const commentElement = document.createElement('div');
+      commentElement.classList.add('comment');
+      commentElement.innerHTML = `
+        <div class="comment-header">
+          <strong>${comment.nome}</strong>
+          <span>${new Date(comment.data).toLocaleDateString('pt-BR')}</span>
+        </div>
+        ${comment.valor ? `<div class="comment-amount">Contribuição: R$${parseFloat(comment.valor).toFixed(2)}</div>` : ''}
+        <div class="comment-message">${comment.mensagem}</div>
+      `;
+      commentsList.appendChild(commentElement);
     });
+  } catch (error) {
+    commentsList.innerHTML = '<p class="error">Erro ao carregar comentários. Atualize a página.</p>';
+    console.error('Erro ao carregar comentários:', error);
+  }
 }
 
 // Manipula o envio do formulário de comentários
-document.getElementById('comment-form').addEventListener('submit', function(e) {
-    e.preventDefault();
+document.getElementById('comment-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const name = document.getElementById('comment-name').value.trim();
+  const message = document.getElementById('comment-message').value.trim();
+  const amount = document.getElementById('comment-amount').value.trim();
+  
+  if (!name || !message) {
+    alert('Por favor, preencha pelo menos o nome e a mensagem.');
+    return;
+  }
+  
+  const btn = this.querySelector('button');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+  
+  try {
+    // Corrigido: usando nomes em português que o Google Apps Script espera
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 
+        nome: name, 
+        mensagem: message, 
+        valor: amount || null 
+      })
+    });
     
-    const name = document.getElementById('comment-name').value;
-    const message = document.getElementById('comment-message').value;
-    const amount = document.getElementById('comment-amount').value;
-    
-    // Cria objeto de comentário
-    const comment = {
-        name,
-        message,
-        amount: amount ? amount : null,
-        date: new Date().toISOString()
-    };
-    
-    // Salva no localStorage
-    const comments = JSON.parse(localStorage.getItem('pixComments')) || [];
-    comments.push(comment);
-    localStorage.setItem('pixComments', JSON.stringify(comments));
-    
-    // Recarrega a lista de comentários
-    loadComments();
-    
-    // Reseta o formulário
-    this.reset();
-    alert('Mensagem enviada com sucesso! Obrigado pela contribuição.');
-    return false;
+    if (response.ok) {
+      await loadComments();
+      this.reset();
+      alert('Mensagem enviada com sucesso! Obrigado pela contribuição.');
+    } else {
+      const errorText = await response.text();
+      throw new Error(`Erro ${response.status}: ${errorText}`);
+    }
+  } catch (error) {
+    console.error('Erro ao enviar comentário:', error);
+    alert('Erro ao enviar mensagem. Por favor, tente novamente mais tarde.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Enviar Mensagem';
+  }
 });
 
 // Carrega comentários quando a página é carregada
 document.addEventListener('DOMContentLoaded', loadComments);
-
-// Previne recarregamento da página nos formulários
-document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        return false;
-    });
-});

@@ -719,3 +719,24 @@ footer {
         font-size: 2.2rem;
     }
 }
+
+/* Adicione no final do arquivo */
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #5c3d24;
+  font-style: italic;
+}
+
+.error {
+  color: #d32f2f;
+  text-align: center;
+  padding: 20px;
+  background: #ffebee;
+  border-radius: 8px;
+}
+
+#comment-form .btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
